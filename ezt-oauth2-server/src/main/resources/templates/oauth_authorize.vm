@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户授权登录</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/oauth_web.css">
+</head>
+<body>
+<div class="oauth_wrap">
+
+</div>
+<label style="color: #0455CA">$client_name</label>将获取您的以下权限
+<br>
+<form method="post" action="authorize">
+    <input type="text" name="action" value="authorize"/></br>
+    <input type="text" name="oauth_token" value="$oauth_token"/></br>
+    <input type="text" name="oauth_content" value="$oauth_content"/></br>
+    <input type="submit" name="commit" value="确认授权"/>
+</form>
+</body>
+<script>
+
+</script>
+</html>

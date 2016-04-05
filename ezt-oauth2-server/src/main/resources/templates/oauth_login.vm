@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户授权登录</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/oauth_web.css">
+</head>
+<body>
+<div class="oauth_wrap">
+
+</div>
+使用你的医指通账号登录<label style="color: #0455CA">$client_name</label>
+    <br>
+        <form method="post" action="authorize">
+            <input type="text" name="action" value="login"/></br>
+            <input type="text" name="client_id" value="$client_id"/></br>
+            <input type="text" name="response_type" value="$response_type" /></br>
+            <input type="text" name="redirect_uri" value="$redirect_uri"/></br>
+            <label>用户名：</label><input type="text" name="user_account"/></br>
+            <label>密码：</label><input type="password" name="user_password"/></br>
+            <input type="submit" name="commit" value="登录"/>
+        </form>
+</body>
+<script>
+
+</script>
+</html>

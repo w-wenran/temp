@@ -3,6 +3,7 @@ package org.base.runtime;
 import org.springframework.context.ApplicationContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Iterator;
 
 /**
  * 服务运行上下文类。
@@ -64,9 +65,13 @@ public class HttpServiceContext {
     }
 
     public static <T> T getBean(Class<T> clazz){
+
         return getCurrent().applicationContext.getBean(clazz);
     }
 
+    public static <T> Iterator<T> getBeans(Class<T> clazz){
+        return getCurrent().applicationContext.getBeansOfType(clazz).values().iterator();
+    }
     /**
      * 获取项目的访问地址
      * @return

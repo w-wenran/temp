@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户授权登录</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/oauth_web.css">
+</head>
+<body>
+Message:$message
+</body>
+<script>
+
+</script>
+</html>

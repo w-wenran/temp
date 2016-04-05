@@ -1,15 +1,19 @@
-package org.ezt.service;
+package org.ezt.handler;
 
 import org.oauth2.server.data.DataHandler;
 import org.oauth2.server.models.AccessToken;
 import org.oauth2.server.models.AuthInfo;
-import org.springframework.stereotype.Service;
+import org.oauth2.server.pluging.Request;
+import org.springframework.stereotype.Component;
 
 /**
- * Created by wangwr on 2016/3/31.
+ * Created by wangwr on 2016/4/5.
  */
-@Service
-public class DataHandlerImpl extends DataHandler {
+public class DefaultDataHandler extends DataHandler {
+
+    public DefaultDataHandler(Request request) {
+        super(request);
+    }
 
     @Override
     public AccessToken getAccessToken(String accessToken) {

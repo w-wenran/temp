@@ -1,0 +1,46 @@
+package org.ezt.handler;
+
+import org.base.utils.DesUtil;
+import org.base.utils.JsonUtil;
+import org.base.utils.RandomUtil;
+import org.ezt.controller.TemplateController;
+import org.ezt.service.OAuthService;
+import org.ezt.views.OauthClientInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by wangwr on 2016/4/5.
+ */
+@Component
+public class OauthLoginHandler implements OauthHandler {
+
+    @Autowired
+    private OAuthService oauthService;
+
+    @Override
+    public ActionType getAction() {
+        return ActionType.login;
+    }
+
+    @Override
+    public void handlerRequest(HttpServletRequest request, HttpServletResponse response, TemplateController controller) {
+        String userAccount = request.getParameter("user_account");
+        String passworld = request.getParameter("user_password");
+        String clientId = request.getParameter("client_id");
+        String token = RandomUtil.randomWords(RandomUtil.RandomType.MIXING,16);
+        Long userId = oauthService.userLogin(userAccount,passworld);
+        OauthClientInfo clientInfo = oauthService.getOauthClient(clientId);
+        clientInfo.setUserId(userId);
+        Map<String,Object> model = new HashMap<String, Object>();
+        model.put("client_name","寻医问药");
+        model.put("oauth_token", token);
+        model.put("oauth_content", DesUtil.encrypt(JsonUtil.toJson(clientInfo),token));
+        controller.parseTemplate("oauth_authorize.vm",model);
+    }
+}

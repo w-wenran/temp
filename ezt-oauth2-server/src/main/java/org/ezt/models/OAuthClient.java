@@ -35,6 +35,9 @@ public class OAuthClient {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createTime;
 
+    @Column(name = "enable",nullable = false)
+    private Boolean enable;
+
     public String getClientId() {
         return clientId;
     }
@@ -65,5 +68,21 @@ public class OAuthClient {
 
     public void setRedirectUri(String redirectUri) {
         this.redirectUri = redirectUri;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
     }
 }

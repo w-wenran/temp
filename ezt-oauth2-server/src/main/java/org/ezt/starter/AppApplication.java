@@ -1,5 +1,6 @@
 package org.ezt.starter;
 
+import org.ezt.starter.config.DataBaseConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -14,9 +15,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan({"org.ezt.controller","org.ezt.service"})
-//@EnableJpaRepositories({"org.ezt.repository"})
-@ImportResource("classpath:spring-context.xml")
+@ComponentScan({"org.ezt.controller","org.ezt.service","org.ezt.handler"})
+@ImportResource({"classpath:spring-context.xml"})
 public class AppApplication extends SpringBootServletInitializer {
 
     @Override

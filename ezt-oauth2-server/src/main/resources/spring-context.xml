@@ -5,6 +5,7 @@
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx
@@ -14,10 +15,12 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/task
-       http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+       http://www.springframework.org/schema/task/spring-task-3.0.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:annotation-config/>
-    <jpa:repositories base-package="org.gold.reststack.repositories"/>
+    <jpa:repositories base-package="org.ezt.repositories"/>
 
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
@@ -27,7 +30,7 @@
         </property>
     </bean>
 
-    <bean id="defaultDataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+    <bean id="defaultDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${driverClassName}"/>
         <property name="url" value="${url}"/>
         <property name="username" value="${username}"/>
@@ -35,7 +38,7 @@
     </bean>
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="defaultDataSource"/>
-        <property name="packagesToScan" value="org.gold.reststack.models"/>
+        <property name="packagesToScan" value="org.ezt.models"/>
         <property name="sharedCacheMode" value="NONE"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
@@ -52,4 +55,12 @@
     <task:annotation-driven/>
 
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="org.base.runtime.HttpServiceContextHandler"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>
