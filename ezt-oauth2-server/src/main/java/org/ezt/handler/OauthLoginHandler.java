@@ -38,7 +38,7 @@ public class OauthLoginHandler implements OauthHandler {
         OauthClientInfo clientInfo = oauthService.getOauthClient(clientId);
         clientInfo.setUserId(userId);
         Map<String,Object> model = new HashMap<String, Object>();
-        model.put("client_name","寻医问药");
+        model.put("client_name",clientInfo.getClientName());
         model.put("oauth_token", token);
         model.put("oauth_content", DesUtil.encrypt(JsonUtil.toJson(clientInfo),token));
         controller.parseTemplate("oauth_authorize.vm",model);

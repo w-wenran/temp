@@ -45,6 +45,6 @@ public class OAuthCodeStore {
     }
 
     public AuthInfo getAuthInfo(String code){
-        return getCodeStore().getAndRemove(code);
+        return getCodeStore().get(code);
     }
 }

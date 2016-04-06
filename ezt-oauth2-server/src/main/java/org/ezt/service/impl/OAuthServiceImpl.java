@@ -1,7 +1,7 @@
 package org.ezt.service.impl;
 
 import org.ezt.models.OAuthClient;
-import org.ezt.repositories.GrantAccessTokenRepository;
+import org.ezt.repositories.OAuthAccessTokenRepository;
 import org.ezt.repositories.OAuthClientRepository;
 import org.ezt.repositories.OAuthUserClientRepository;
 import org.ezt.repositories.OAuthUserRepository;
@@ -26,7 +26,7 @@ public class OAuthServiceImpl implements OAuthService {
     private OAuthUserClientRepository oauthUserClientRepository;
 
     @Autowired
-    private GrantAccessTokenRepository grantAccessTokenRepository;
+    private OAuthAccessTokenRepository grantAccessTokenRepository;
 
     @Override
     public OauthClientInfo getOauthClient(String clientId) {

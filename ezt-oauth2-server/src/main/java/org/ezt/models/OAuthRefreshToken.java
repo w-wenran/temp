@@ -11,8 +11,8 @@ import java.util.Date;
  * Created by wangwr on 2016/3/31.
  */
 @Entity
-@Table(name = "info_grant_access_token")
-public class GrantAccessToken {
+@Table(name = "info_oauth_refresh_token")
+public class OAuthRefreshToken {
 
     @Id
     @Note("标识id")
@@ -28,10 +28,6 @@ public class GrantAccessToken {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "openid", insertable = false, updatable = false, nullable = false)
     private OAuthUser oauthUser;
-
-    @Note("调用开放接口的凭证")
-    @Column(name = "access_token",length = 32,nullable = false,unique = true)
-    private String accessToken;
 
     @Note("该凭证可以换取新的凭证")
     @Column(name = "refresh_token",length = 32,nullable = false,unique = true)
@@ -68,14 +64,6 @@ public class GrantAccessToken {
 
     public void setOauthUser(OAuthUser oauthUser) {
         this.oauthUser = oauthUser;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
     }
 
     public String getRefreshToken() {

@@ -2,6 +2,7 @@ package org.ezt.handler;
 
 import org.base.utils.DesUtil;
 import org.base.utils.JsonUtil;
+import org.base.utils.RandomUtil;
 import org.ezt.common.OAuthCodeStore;
 import org.ezt.controller.TemplateController;
 import org.ezt.views.OauthClientInfo;
@@ -34,6 +35,7 @@ public class OauthAuthorizeHandler implements OauthHandler {
         authInfo.setRedirectUri(oauthClientInfo.getRedirectUri());
         authInfo.setClientId(oauthClientInfo.getClientId());
         authInfo.setUserId(oauthClientInfo.getUserId().toString());
+        authInfo.setRefreshToken(RandomUtil.randomWords(RandomUtil.RandomType.MIXING,32));
         String code = OAuthCodeStore.getInstance().addAuthInfo(authInfo);
         try {
             response.sendRedirect(oauthClientInfo.getRedirectUri()+"?code="+code);
