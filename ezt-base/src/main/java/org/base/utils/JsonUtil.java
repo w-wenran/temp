@@ -16,9 +16,10 @@ import java.util.Map;
  */
 public class JsonUtil {
 
-    public static ObjectMapper objectMapper = new ObjectMapper();
+    public static ObjectMapper objectMapper;
 
     static {
+        objectMapper = new ObjectMapper();
         objectMapper.setDateFormat(new HttpServiceDateFormat());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
     }

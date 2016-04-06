@@ -15,11 +15,11 @@ public class OAuthClient {
 
     @Id
     @Note("应用id")
-    @Column(name = "client_id",length = 32)
+    @Column(name = "client_id",length = 64)
     private String clientId;
 
     @Note("应用KEY")
-    @Column(name = "client_secret",length = 32)
+    @Column(name = "client_secret",length = 64)
     private String clientSecret;
 
     @Note("应用名字")

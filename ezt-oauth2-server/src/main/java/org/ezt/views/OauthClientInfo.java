@@ -20,8 +20,8 @@ public class OauthClientInfo {
     @JsonProperty("redirect_uri")
     private String redirectUri;
 
-    @JsonProperty("user_id")
-    private Long userId;
+    @JsonProperty("openid")
+    private String openid;
 
     public OauthClientInfo() {
     }
@@ -64,11 +64,11 @@ public class OauthClientInfo {
         this.redirectUri = redirectUri;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getOpenid() {
+        return openid;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 }

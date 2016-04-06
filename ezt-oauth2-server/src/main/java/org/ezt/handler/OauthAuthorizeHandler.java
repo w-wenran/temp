@@ -34,7 +34,7 @@ public class OauthAuthorizeHandler implements OauthHandler {
         AuthInfo authInfo = new AuthInfo();
         authInfo.setRedirectUri(oauthClientInfo.getRedirectUri());
         authInfo.setClientId(oauthClientInfo.getClientId());
-        authInfo.setUserId(oauthClientInfo.getUserId().toString());
+        authInfo.setUserId(oauthClientInfo.getOpenid());
         authInfo.setRefreshToken(RandomUtil.randomWords(RandomUtil.RandomType.MIXING,32));
         String code = OAuthCodeStore.getInstance().addAuthInfo(authInfo);
         try {

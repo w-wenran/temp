@@ -18,7 +18,7 @@ public class OAuthUser {
      */
     @Id
     @Note("用户唯一标识id")
-    @Column(name = "openid",length = 32)
+    @Column(name = "openid",length = 64)
     private String openid;
 
     @Note("用户id")

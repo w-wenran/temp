@@ -1,7 +1,10 @@
 package org.ezt.handler;
 
+import org.base.runtime.HttpServiceContext;
 import org.base.utils.RandomUtil;
 import org.ezt.common.OAuthCodeStore;
+import org.ezt.models.OAuthAccessToken;
+import org.ezt.service.OAuthService;
 import org.oauth2.server.data.DataHandler;
 import org.oauth2.server.models.AccessToken;
 import org.oauth2.server.models.AuthInfo;
@@ -15,8 +18,11 @@ import java.util.Date;
  */
 public class DefaultDataHandler extends DataHandler {
 
+    private OAuthService oauthService;
+
     public DefaultDataHandler(Request request) {
         super(request);
+        oauthService = HttpServiceContext.getBean(OAuthService.class);
     }
 
     @Override
@@ -36,11 +42,8 @@ public class DefaultDataHandler extends DataHandler {
 
     @Override
     public AccessToken createOrUpdateAccessToken(AuthInfo authInfo) {
-        AccessToken accessToken = new AccessToken();
-        accessToken.setCreatedOn(new Date());
-        accessToken.setExpiresIn(3*60*60);
-        accessToken.setToken(RandomUtil.randomWords(RandomUtil.RandomType.MIXING,32));
-        return accessToken;
+        OAuthAccessToken authAccessToken = oauthService.createOrUpdateAccessToken(authInfo);
+        return authAccessToken.parseAccessToken();
     }
 
     @Override

@@ -18,7 +18,7 @@ public class OAuthUserClient {
 
     @Id
     @Note("应用id")
-    @Column(name = "client_id")
+    @Column(name = "client_id",length = 64)
     private String clientId;
 
     @JsonIgnore
@@ -28,7 +28,7 @@ public class OAuthUserClient {
 
     @Id
     @Note("用户唯一标识id")
-    @Column(name = "openid")
+    @Column(name = "openid",length = 64)
     private String openid;
 
     @JsonIgnore
@@ -40,6 +40,11 @@ public class OAuthUserClient {
     @Column(name = "create_time",nullable = false,updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createTime;
+
+    @Note("最后修改时间")
+    @Column(name = "last_modified",nullable = false)
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date lastModified;
 
     public String getClientId() {
         return clientId;
@@ -79,5 +84,13 @@ public class OAuthUserClient {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
     }
 }

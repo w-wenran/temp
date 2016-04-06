@@ -1,18 +1,28 @@
 package org.ezt.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.base.utils.RandomUtil;
 import org.base.utils.beannote.Note;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
 
 /**
- * 授权信息
+ * 授权信息刷新token,过期时间比access_token的时间长
  * Created by wangwr on 2016/3/31.
  */
 @Entity
 @Table(name = "info_oauth_refresh_token")
 public class OAuthRefreshToken {
+
+    public static String generatedToken(){
+        return RandomUtil.randomWords(RandomUtil.RandomType.MIXING,64);
+    }
+
+    public static Long expiresInTime(){
+        return Long.valueOf(7*24*60*60);
+    }
 
     @Id
     @Note("标识id")
@@ -21,7 +31,7 @@ public class OAuthRefreshToken {
     private Long id;
 
     @Note("用户的唯一标识")
-    @Column(name = "openid",length = 32,nullable = false)
+    @Column(name = "openid",length = 64,nullable = false)
     private String openid;
 
     @JsonIgnore
@@ -29,8 +39,17 @@ public class OAuthRefreshToken {
     @JoinColumn(name = "openid", insertable = false, updatable = false, nullable = false)
     private OAuthUser oauthUser;
 
+    @JsonProperty("client_id")
+    @Column(name = "client_id",length = 64,nullable = false)
+    private String clientId;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "client_id", insertable = false, updatable = false, nullable = false)
+    private OAuthClient oAuthClient;
+
     @Note("该凭证可以换取新的凭证")
-    @Column(name = "refresh_token",length = 32,nullable = false,unique = true)
+    @Column(name = "refresh_token",length = 64,nullable = false,unique = true)
     private String refreshToken;
 
     @Note("创建时间")
@@ -38,7 +57,7 @@ public class OAuthRefreshToken {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date createTime;
 
-    @Note("过期时间")
+    @Note("过期时间(秒)")
     @Column(name = "expires_in",nullable = false)
     private Long expiresIn;
 
@@ -88,5 +107,21 @@ public class OAuthRefreshToken {
 
     public void setExpiresIn(Long expiresIn) {
         this.expiresIn = expiresIn;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public OAuthClient getoAuthClient() {
+        return oAuthClient;
+    }
+
+    public void setoAuthClient(OAuthClient oAuthClient) {
+        this.oAuthClient = oAuthClient;
     }
 }

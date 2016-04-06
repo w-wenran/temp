@@ -1,6 +1,9 @@
 package org.ezt.service;
 
+import org.ezt.models.OAuthAccessToken;
+import org.ezt.models.OAuthRefreshToken;
 import org.ezt.views.OauthClientInfo;
+import org.oauth2.server.models.AuthInfo;
 
 /**
  * 授权服务逻辑层
@@ -19,8 +22,22 @@ public interface OAuthService {
      * 用户登陆
      * @param userAccount 用户账号
      * @param password 用户密码
-     * @return 用户id
+     * @return 用户openid
      */
-    Long userLogin(String userAccount,String password);
+    String userLogin(String userAccount,String password);
+
+    /**
+     * 新建或更新access_token
+     * @return
+     */
+    OAuthAccessToken createOrUpdateAccessToken(AuthInfo authInfo);
+
+
+    /**
+     * 新建refresh_token
+     * @param clientInfo
+     * @return
+     */
+    OAuthRefreshToken createRefreshToken(OauthClientInfo clientInfo);
 
 }

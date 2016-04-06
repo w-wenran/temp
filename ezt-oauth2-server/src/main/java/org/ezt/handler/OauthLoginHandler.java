@@ -34,9 +34,9 @@ public class OauthLoginHandler implements OauthHandler {
         String passworld = request.getParameter("user_password");
         String clientId = request.getParameter("client_id");
         String token = RandomUtil.randomWords(RandomUtil.RandomType.MIXING,16);
-        Long userId = oauthService.userLogin(userAccount,passworld);
+        String openid = oauthService.userLogin(userAccount,passworld);
         OauthClientInfo clientInfo = oauthService.getOauthClient(clientId);
-        clientInfo.setUserId(userId);
+        clientInfo.setOpenid(openid);
         Map<String,Object> model = new HashMap<String, Object>();
         model.put("client_name",clientInfo.getClientName());
         model.put("oauth_token", token);
