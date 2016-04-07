@@ -25,6 +25,7 @@ public class DefaultGrantHandlerProvider extends GrantHandlerProvider {
         handlers.put("authorization_code",authorizationCodeGrantHandler);
 
         RefreshTokenGrantHandler refreshTokenGrantHandler = new RefreshTokenGrantHandler();
+        refreshTokenGrantHandler.setClientCredentialFetcher(fetcher);
         handlers.put("refresh_token",refreshTokenGrantHandler);
 
         this.setHandlers(handlers);

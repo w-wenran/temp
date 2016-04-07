@@ -40,4 +40,11 @@ public interface OAuthService {
      */
     OAuthRefreshToken createRefreshToken(OauthClientInfo clientInfo);
 
+    /**
+     * 查询refreshToken
+     * @param refreshToken
+     * @return
+     */
+    OAuthRefreshToken getRefreshToken(String refreshToken);
+
 }

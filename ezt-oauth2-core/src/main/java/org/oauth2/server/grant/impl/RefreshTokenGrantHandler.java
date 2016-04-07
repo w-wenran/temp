@@ -1,5 +1,7 @@
 package org.oauth2.server.grant.impl;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.oauth2.server.data.DataHandler;
 import org.oauth2.server.fetcher.clientcredential.ClientCredentialFetcher;
 import org.oauth2.server.grant.GrantResult;
@@ -13,7 +15,7 @@ public class RefreshTokenGrantHandler extends AbstractGrantHandler{
 
 
     @Override
-    public GrantResult handleRequest(DataHandler dataHandler) {
+    public Response handleRequest(DataHandler dataHandler) {
         Request request = dataHandler.getRequest();
         ClientCredentialFetcher.ClientCredential clientCredential = getClientCredentialFetcher().fetch(request);
         String clientId = clientCredential.getClientId();
@@ -25,6 +27,54 @@ public class RefreshTokenGrantHandler extends AbstractGrantHandler{
         if (!authInfo.getClientId().equals(clientId)) {
             throw new RuntimeException("invalid client_id");
         }
-        return issueAccessToken(dataHandler,authInfo);
+        GrantResult result = issueAccessToken(dataHandler,authInfo);
+        return new Response(result.getTokenType(),result.getAccessToken(),result.getExpiresIn());
+    }
+
+    @JsonPropertyOrder({
+            "token_type",
+            "access_token",
+            "expires_in"})
+    public static class Response{
+
+        @JsonProperty("token_type")
+        private String tokenType;
+
+        @JsonProperty("access_token")
+        private String accessToken;
+
+        @JsonProperty("expires_in")
+        private Long expiresIn;
+
+
+        public Response(String tokenType, String accessToken, Long expiresIn) {
+            this.tokenType = tokenType;
+            this.accessToken = accessToken;
+            this.expiresIn = expiresIn;
+        }
+
+        public String getTokenType() {
+            return tokenType;
+        }
+
+        public void setTokenType(String tokenType) {
+            this.tokenType = tokenType;
+        }
+
+        public String getAccessToken() {
+            return accessToken;
+        }
+
+        public void setAccessToken(String accessToken) {
+            this.accessToken = accessToken;
+        }
+
+        public Long getExpiresIn() {
+            return expiresIn;
+        }
+
+        public void setExpiresIn(Long expiresIn) {
+            this.expiresIn = expiresIn;
+        }
     }
 }

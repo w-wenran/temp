@@ -147,4 +147,9 @@ public class OAuthAccessToken {
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
+
+    @PrePersist
+    private void onCreate() {
+        this.setCreateTime(new Date());
+    }
 }

@@ -7,6 +7,6 @@ import org.oauth2.server.data.DataHandler;
  */
 public interface GrantHandler {
 
-    GrantResult handleRequest(DataHandler dataHandler);
+    Object handleRequest(DataHandler dataHandler);
 
 }

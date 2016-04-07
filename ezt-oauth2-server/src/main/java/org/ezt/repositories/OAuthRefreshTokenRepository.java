@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface OAuthRefreshTokenRepository extends JpaRepository<OAuthRefreshToken,Long> {
 
+    OAuthRefreshToken findByRefreshToken(String refreshToken);
 }

@@ -97,6 +97,11 @@ public class OAuthServiceImpl implements OAuthService {
         return oAuthRefreshTokenRepository.saveAndFlush(oauthRefreshToken);
     }
 
+    @Override
+    public OAuthRefreshToken getRefreshToken(String refreshToken) {
+        return oAuthRefreshTokenRepository.findByRefreshToken(refreshToken);
+    }
+
     /**
      * 新建openid与原来的用户进行绑定
      * @param eztUser

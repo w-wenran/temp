@@ -2,8 +2,10 @@ package org.ezt.handler;
 
 import org.base.runtime.HttpServiceContext;
 import org.base.utils.RandomUtil;
+import org.base.utils.StrUtil;
 import org.ezt.common.OAuthCodeStore;
 import org.ezt.models.OAuthAccessToken;
+import org.ezt.models.OAuthRefreshToken;
 import org.ezt.service.OAuthService;
 import org.oauth2.server.data.DataHandler;
 import org.oauth2.server.models.AccessToken;
@@ -22,7 +24,10 @@ public class DefaultDataHandler extends DataHandler {
 
     public DefaultDataHandler(Request request) {
         super(request);
-        oauthService = HttpServiceContext.getBean(OAuthService.class);
+    }
+
+    public void setOauthService(OAuthService oauthService) {
+        this.oauthService = oauthService;
     }
 
     @Override
@@ -48,7 +53,11 @@ public class DefaultDataHandler extends DataHandler {
 
     @Override
     public AuthInfo getAuthInfoByRefreshToken(String refreshToken) {
-        return null;
+        OAuthRefreshToken token = oauthService.getRefreshToken(refreshToken);
+        if (StrUtil.isNull(token)){
+            return null;
+        }
+        return token.parseAuthInfo();
     }
 
     @Override

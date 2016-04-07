@@ -20,7 +20,7 @@ public class AccessTokenHandler {
 
     private GrantHandlerProvider grantHandlerProvider;
 
-    public GrantResult handlerRequest(Request request){
+    public Object handlerRequest(Request request){
         String type = request.getParameter("grant_type");
         if(StrUtils.isEmpty(type)){
             throw new RuntimeException("grant_type not found");
