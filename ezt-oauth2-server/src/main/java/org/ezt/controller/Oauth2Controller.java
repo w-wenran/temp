@@ -42,17 +42,22 @@ public class Oauth2Controller extends TemplateController{
 
     private GrantHandlerProvider grantHandlerProvider;
 
+    private AccessTokenHandler accessTokenHandler;
+
 
     public Oauth2Controller() {
         super();
         clientCredentialFetcher = new ClientCredentialFetcherImpl();
         grantHandlerProvider = new DefaultGrantHandlerProvider();
+        accessTokenHandler = new AccessTokenHandler();
+        accessTokenHandler.setClientCredentialFetcher(clientCredentialFetcher);
+        accessTokenHandler.setGrantHandlerProvider(grantHandlerProvider);
     }
 
     @API(name = "oauth2用户登录授权Code",params = {"client_id:第三方应用标识ID",
-            "response_type:目前只支持code","redirect_uri:登录后跳转的第三方地址"},respData = "授權登录授权界面")
+            "response_type:目前只支持code","redirect_uri:登录后跳转的第三方地址"},respData = "登录界面")
     @RequestMapping(value = "/oauth2/authorize",method = RequestMethod.GET)
-    public void authorize(HttpServletRequest req, HttpServletResponse response){
+    public void authorize(HttpServletRequest req){
         try {
             HttpServletRequestAdapter requestAdapter = new HttpServletRequestAdapter(req);
             String clientId = requestAdapter.getParameter("client_id");
@@ -87,10 +92,7 @@ public class Oauth2Controller extends TemplateController{
     @RequestMapping(value = "/oauth2/access_token",method = RequestMethod.GET)
     public Object getAccessToken(HttpServletRequest request){
         HttpServletRequestAdapter requestAdapter = new HttpServletRequestAdapter(request);
-        AccessTokenHandler handler = new AccessTokenHandler();
-        handler.setClientCredentialFetcher(clientCredentialFetcher);
-        handler.setDataHandlerFactory(dataHandlerFactory);
-        handler.setGrantHandlerProvider(grantHandlerProvider);
-        return handler.handlerRequest(requestAdapter);
+        accessTokenHandler.setDataHandlerFactory(dataHandlerFactory);
+        return accessTokenHandler.handlerRequest(requestAdapter);
     }
 }

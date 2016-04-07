@@ -1,5 +1,6 @@
 package org.ezt.models;
 
+import org.base.utils.RandomUtil;
 import org.base.utils.beannote.Note;
 
 import javax.persistence.*;
@@ -13,12 +14,16 @@ import java.util.Date;
 @Table(name = "info_oauth_user")
 public class OAuthUser {
 
+    public static String generatedOpenid(){
+        return RandomUtil.randomWords(RandomUtil.RandomType.MIXING,48);
+    }
+
     /**
      * 用户唯一标识，一旦生成不可以修改
      */
     @Id
     @Note("用户唯一标识id")
-    @Column(name = "openid",length = 64)
+    @Column(name = "openid",length = 48)
     private String openid;
 
     @Note("用户id")
@@ -52,5 +57,10 @@ public class OAuthUser {
 
     public void setOpenid(String openid) {
         this.openid = openid;
+    }
+
+    @PrePersist
+    private void onCreate() {
+        this.setCreateTime(new Date());
     }
 }

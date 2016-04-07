@@ -40,6 +40,7 @@ public class OAuthCodeStore {
 
     public String addAuthInfo(AuthInfo authInfo){
         String code = RandomUtil.randomWords(RandomUtil.RandomType.DIGITAL,32);
+        authInfo.setCode(code);
         getCodeStore().put(code,authInfo);
         return code;
     }

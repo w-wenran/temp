@@ -1,5 +1,6 @@
 package org.base.utils;
 
+
 /**
  * 字符串工具
  * Created by wangwr on 2016.3.24.
@@ -16,5 +17,13 @@ public class StrUtil {
             target.append(chars);
         }
         return target.toString();
+    }
+
+    public static boolean isNull(Object obj){
+        return obj == null;
+    }
+
+    public static boolean isEmpty(String str){
+        return str==null || !(str.length()>0);
     }
 }

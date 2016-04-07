@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.base.utils.RandomUtil;
 import org.base.utils.beannote.Note;
+import org.oauth2.server.models.AuthInfo;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -60,6 +61,14 @@ public class OAuthRefreshToken {
     @Note("过期时间(秒)")
     @Column(name = "expires_in",nullable = false)
     private Long expiresIn;
+
+    public AuthInfo parseAuthInfo(){
+        AuthInfo authInfo = new AuthInfo();
+        authInfo.setRefreshToken(this.refreshToken);
+        authInfo.setUserId(this.getOpenid());
+        authInfo.setClientId(this.clientId);
+        return authInfo;
+    }
 
     public Long getId() {
         return id;
@@ -123,5 +132,10 @@ public class OAuthRefreshToken {
 
     public void setoAuthClient(OAuthClient oAuthClient) {
         this.oAuthClient = oAuthClient;
+    }
+
+    @PrePersist
+    private void onCreate() {
+        this.setCreateTime(new Date());
     }
 }

@@ -16,8 +16,8 @@
             <input type="text" name="client_id" value="$client_id"/></br>
             <input type="text" name="response_type" value="$response_type" /></br>
             <input type="text" name="redirect_uri" value="$redirect_uri"/></br>
-            <label>用户名：</label><input type="text" name="user_account"/></br>
-            <label>密码：</label><input type="password" name="user_password"/></br>
+            <label>用户名：</label><input type="text" name="user_account" value="7442602"/></br>
+            <label>密码：</label><input type="password" name="user_password" value="123456"/></br>
             <input type="submit" name="commit" value="登录"/>
         </form>
 </body>
