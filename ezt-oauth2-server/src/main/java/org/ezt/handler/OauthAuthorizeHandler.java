@@ -1,10 +1,13 @@
 package org.ezt.handler;
 
+import org.base.constants.ExecuteStatus;
 import org.base.pluging.RedirectPage;
 import org.base.utils.Assert;
 import org.base.utils.DesUtil;
 import org.base.utils.JsonUtil;
+import org.base.utils.StrUtil;
 import org.ezt.common.OAuthCodeStore;
+import org.ezt.common.OAuthContentStore;
 import org.ezt.models.OAuthRefreshToken;
 import org.ezt.service.OAuthService;
 import org.ezt.views.OauthClientInfo;
@@ -33,11 +36,14 @@ public class OauthAuthorizeHandler implements OauthHandler {
 
     @Override
     public RedirectPage handlerRequest(HttpServletRequest request, HttpServletResponse response) {
-        String token = request.getParameter("oauth_token");
-        String content = request.getParameter("oauth_content");
-        String data = DesUtil.decrypt(content,token);
+        String authkey = request.getParameter("authkey");
+        String authvalue = request.getParameter("authvalue");
 
-        OauthClientInfo oauthClientInfo = JsonUtil.toBean(data,OauthClientInfo.class);
+        Assert.expr(StrUtil.isEmpty(authkey), ExecuteStatus.post_invalid_data);
+
+        Assert.expr(StrUtil.isEmpty(authvalue), ExecuteStatus.post_invalid_data);
+
+        OauthClientInfo oauthClientInfo = OAuthContentStore.getInstance().decrypt(authkey,authvalue);
 
         Assert.notNull(oauthClientInfo,"授权失败,授权数据不合法");
 

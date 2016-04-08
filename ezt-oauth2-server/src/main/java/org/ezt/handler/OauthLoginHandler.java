@@ -1,9 +1,9 @@
 package org.ezt.handler;
 
+import org.base.constants.ExecuteStatus;
 import org.base.pluging.ModelView;
-import org.base.utils.DesUtil;
-import org.base.utils.JsonUtil;
-import org.base.utils.RandomUtil;
+import org.base.utils.*;
+import org.ezt.common.OAuthContentStore;
 import org.ezt.service.OAuthService;
 import org.ezt.views.OauthClientInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +33,20 @@ public class OauthLoginHandler implements OauthHandler {
         String userAccount = request.getParameter("user_account");
         String passworld = request.getParameter("user_password");
         String clientId = request.getParameter("client_id");
-        String token = RandomUtil.randomWords(RandomUtil.RandomType.MIXING,16);
+
         String openid = oauthService.userLogin(userAccount,passworld);
+
         OauthClientInfo clientInfo = oauthService.getOauthClient(clientId);
+
+        Assert.expr(StrUtil.isNull(clientInfo), ExecuteStatus.unknown_client_id);
+
         clientInfo.setOpenid(openid);
-        Map<String,Object> model = new HashMap<String, Object>();
+
+        OAuthContentStore.EncryptClient encryptClient = OAuthContentStore.getInstance().encrypt(clientInfo);
+
+        Map<String,Object> model = encryptClient.getMap();
         model.put("client_name",clientInfo.getClientName());
-        model.put("oauth_token", token);
-        model.put("oauth_content", DesUtil.encrypt(JsonUtil.toJson(clientInfo),token));
+
         return new ModelView("oauth_authorize.vm",model);
     }
 }

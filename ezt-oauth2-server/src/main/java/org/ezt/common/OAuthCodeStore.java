@@ -41,7 +41,7 @@ public class OAuthCodeStore {
     public String addAuthInfo(AuthInfo authInfo){
         String code = RandomUtil.randomWords(RandomUtil.RandomType.DIGITAL,32);
         authInfo.setCode(code);
-        getCodeStore().put(code,authInfo);
+        getCodeStore().put(code,authInfo,60);//60秒自动过期
         return code;
     }
 

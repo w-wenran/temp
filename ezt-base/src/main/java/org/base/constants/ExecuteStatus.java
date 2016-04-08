@@ -26,6 +26,8 @@ public enum ExecuteStatus {
 
     execute_failure("00000010","执行失败"),
 
+    post_invalid_data("00000011","失效或无效的数据"),
+
     server_busy("99999999","服务器繁忙,请稍后再试");
 
 
