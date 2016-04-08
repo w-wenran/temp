@@ -1,5 +1,7 @@
 package org.oauth2.server.endpoint;
 
+import org.base.constants.ExecuteStatus;
+import org.base.exception.RuntimeExceptionWarning;
 import org.oauth2.server.data.DataHandler;
 import org.oauth2.server.data.DataHandlerFactory;
 import org.oauth2.server.fetcher.accesstoken.AccessTokenFetcher;
@@ -22,7 +24,7 @@ public class ProtectedResourceHandler {
     public Response handlerRequest(Request request){
         AccessTokenFetcher accessTokenFetcher = accessTokenFetcherProvider.getFetcher(request);
         if (accessTokenFetcher == null) {
-            throw new RuntimeException("invalid_token");
+            throw new RuntimeExceptionWarning(ExecuteStatus.invalid_token);
         }
 
         FetchResult fetchResult = accessTokenFetcher.fetch(request);
@@ -30,17 +32,17 @@ public class ProtectedResourceHandler {
         AccessToken accessToken = dataHandler.getAccessToken(fetchResult.getAccessToken());
 
         if(accessToken==null){
-            throw new RuntimeException("invalid_token");
+            throw new RuntimeExceptionWarning(ExecuteStatus.invalid_token);
         }
 
         long now = System.currentTimeMillis();
         if (accessToken.getCreatedOn().getTime() + accessToken.getExpiresIn() * 1000 <= now) {
-            throw new RuntimeException("expired_token");
+            throw new RuntimeExceptionWarning(ExecuteStatus.expired_token);
         }
 
         AuthInfo authInfo = dataHandler.getAuthInfo(accessToken.getAuthId());
         if(authInfo==null){
-            throw new RuntimeException("invalid_token");
+            throw new RuntimeExceptionWarning(ExecuteStatus.invalid_token);
         }
         return new Response(authInfo.getUserId(),authInfo.getClientId(),authInfo.getScope());
     }

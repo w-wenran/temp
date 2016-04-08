@@ -32,7 +32,7 @@ public class OAuthAccessToken {
     private Long id;
 
     @Note("用户的唯一标识")
-    @Column(name = "openid",length = 32,nullable = false)
+    @Column(name = "openid",length = 48,nullable = false)
     private String openid;
 
     @JsonIgnore

@@ -42,12 +42,17 @@ public class OAuthServiceImpl implements OAuthService {
     private EztUserRepository eztUserRepository;
 
     @Override
-    public OauthClientInfo getOauthClient(String clientId) {
+    public OAuthClient getOauthClient(String clientId) {
         OAuthClient oAuthClient = oauthClientRepository.findOne(clientId);
         if(oAuthClient==null){
-            throw new RuntimeException("无效的客户端");
+            throw new RuntimeExceptionWarning(ExecuteStatus.unknown_client_id);
         }
-        return new OauthClientInfo(oAuthClient);
+        return oAuthClient;
+    }
+
+    @Override
+    public OauthClientInfo getClientInfo(String clientId) {
+        return new OauthClientInfo(getOauthClient(clientId));
     }
 
     @Override

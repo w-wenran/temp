@@ -1,12 +1,16 @@
 package org.ezt.handler;
 
+import org.base.constants.ExecuteStatus;
+import org.base.exception.RuntimeExceptionWarning;
 import org.base.runtime.HttpServiceContext;
 import org.base.utils.RandomUtil;
 import org.base.utils.StrUtil;
 import org.ezt.common.OAuthCodeStore;
 import org.ezt.models.OAuthAccessToken;
+import org.ezt.models.OAuthClient;
 import org.ezt.models.OAuthRefreshToken;
 import org.ezt.service.OAuthService;
+import org.ezt.views.OauthClientInfo;
 import org.oauth2.server.data.DataHandler;
 import org.oauth2.server.models.AccessToken;
 import org.oauth2.server.models.AuthInfo;
@@ -62,6 +66,10 @@ public class DefaultDataHandler extends DataHandler {
 
     @Override
     public boolean validateClient(String clientId, String clientSecret, String grantType) {
-        return true;
+        OAuthClient clientInfo = oauthService.getOauthClient(clientId);
+        if(clientInfo==null){
+            throw new RuntimeExceptionWarning(ExecuteStatus.unknown_client_id);
+        }
+        return clientInfo.getClientSecret().equals(clientSecret);
     }
 }

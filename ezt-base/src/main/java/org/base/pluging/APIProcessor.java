@@ -7,6 +7,8 @@ import org.base.constants.ExecuteStatus;
 import org.base.exception.RuntimeExceptionWarning;
 import org.base.runtime.HttpServiceContext;
 import org.base.utils.JsonUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
@@ -14,6 +16,8 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
  * Created by wangwr on 2016/4/7.
  */
 public class APIProcessor {
+
+    private static Logger logger = LoggerFactory.getLogger(APIProcessor.class);
 
     @Autowired
     private VelocityEngine velocityEngine;
@@ -36,7 +40,10 @@ public class APIProcessor {
             if(RuntimeExceptionWarning.class.isInstance(e)){
                 RuntimeExceptionWarning warning = (RuntimeExceptionWarning) e;
                 errorBody = new ErrorBody(warning.getError(),warning.getErrorCode(),warning.getErrorDescription());
+            }else{
+                logger.error("服务异常",e);
             }
+
             return VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,"error.vm","UTF-8",JsonUtil.toMap(JsonUtil.toJson(errorBody)));
         }
     }

@@ -19,6 +19,8 @@
 package org.oauth2.server.grant.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.base.constants.ExecuteStatus;
+import org.base.exception.RuntimeExceptionWarning;
 import org.oauth2.server.data.DataHandler;
 import org.oauth2.server.fetcher.clientcredential.ClientCredentialFetcher;
 import org.oauth2.server.grant.GrantResult;
@@ -36,9 +38,11 @@ public class AuthorizationCodeGrantHandler extends AbstractGrantHandler {
 
 	@Override
 	public GrantResult handleRequest(DataHandler dataHandler) {
+
 		Request request = dataHandler.getRequest();
 
 		ClientCredentialFetcher.ClientCredential clientCredential = getClientCredentialFetcher().fetch(request);
+
 		String clientId = clientCredential.getClientId();
 
 		String code = getParameter(request, "code");
@@ -47,14 +51,14 @@ public class AuthorizationCodeGrantHandler extends AbstractGrantHandler {
 		AuthInfo authInfo = dataHandler.getAuthInfoByCode(code);
 
 		if (authInfo == null) {
-			throw new RuntimeException("invalid_code");
+			throw new RuntimeExceptionWarning(ExecuteStatus.invalid_code);
 		}
 		if (!authInfo.getClientId().equals(clientId)) {
-			throw new RuntimeException("");
+			throw new RuntimeExceptionWarning(ExecuteStatus.client_id_not_match);
 		}
 		if (!(StringUtils.isNotEmpty(authInfo.getRedirectUri())
 		&& authInfo.getRedirectUri().equals(redirectUri))) {
-			throw new RuntimeException("redirect url mismatch");
+			throw new RuntimeExceptionWarning(ExecuteStatus.redirect_uri_not_match);
 		}
 
 		return issueAccessToken(dataHandler, authInfo);

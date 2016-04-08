@@ -2,6 +2,8 @@ package org.oauth2.server.grant.impl;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.base.constants.ExecuteStatus;
+import org.base.exception.RuntimeExceptionWarning;
 import org.oauth2.server.data.DataHandler;
 import org.oauth2.server.fetcher.clientcredential.ClientCredentialFetcher;
 import org.oauth2.server.grant.GrantResult;
@@ -22,10 +24,10 @@ public class RefreshTokenGrantHandler extends AbstractGrantHandler{
         String refreshToken = getParameter(request,"refresh_token");
         AuthInfo authInfo = dataHandler.getAuthInfoByRefreshToken(refreshToken);
         if(authInfo == null){
-            throw new RuntimeException("invalid refresh_token");
+            throw new RuntimeExceptionWarning(ExecuteStatus.invalid_refresh_token);
         }
         if (!authInfo.getClientId().equals(clientId)) {
-            throw new RuntimeException("invalid client_id");
+            throw new RuntimeExceptionWarning(ExecuteStatus.client_id_not_match);
         }
         GrantResult result = issueAccessToken(dataHandler,authInfo);
         return new Response(result.getTokenType(),result.getAccessToken(),result.getExpiresIn());

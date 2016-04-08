@@ -1,6 +1,8 @@
 package org.oauth2.server.grant.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.base.constants.ExecuteStatus;
+import org.base.exception.RuntimeExceptionWarning;
 import org.oauth2.server.data.DataHandler;
 import org.oauth2.server.fetcher.clientcredential.ClientCredentialFetcher;
 import org.oauth2.server.grant.GrantHandler;
@@ -49,7 +51,7 @@ public abstract class AbstractGrantHandler implements GrantHandler{
     protected String getParameter(Request request, String name) {
         String value = request.getParameter(name);
         if (StringUtils.isEmpty(value)) {
-            throw new RuntimeException("'" + name + "' not found");
+            throw new RuntimeExceptionWarning(ExecuteStatus.param_is_null,"'" + name + "' not found");
         }
         return value;
     }

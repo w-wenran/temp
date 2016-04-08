@@ -36,7 +36,7 @@ public class OauthLoginHandler implements OauthHandler {
 
         String openid = oauthService.userLogin(userAccount,passworld);
 
-        OauthClientInfo clientInfo = oauthService.getOauthClient(clientId);
+        OauthClientInfo clientInfo = oauthService.getClientInfo(clientId);
 
         Assert.expr(StrUtil.isNull(clientInfo), ExecuteStatus.unknown_client_id);
 

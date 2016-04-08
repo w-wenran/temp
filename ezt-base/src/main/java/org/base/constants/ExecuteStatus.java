@@ -28,6 +28,14 @@ public enum ExecuteStatus {
 
     post_invalid_data("00000011","失效或无效的数据"),
 
+    invalid_code("00000012","无效的code"),
+
+    client_id_not_match("00000013","不匹配的client_id"),
+
+    redirect_uri_not_match("00000014","跳转地址不匹配"),
+
+    invalid_refresh_token("00000015","无效的refresh_token"),
+
     server_busy("99999999","服务器繁忙,请稍后再试");
 
 

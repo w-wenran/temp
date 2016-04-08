@@ -1,6 +1,7 @@
 package org.ezt.service;
 
 import org.ezt.models.OAuthAccessToken;
+import org.ezt.models.OAuthClient;
 import org.ezt.models.OAuthRefreshToken;
 import org.ezt.views.OauthClientInfo;
 import org.oauth2.server.models.AuthInfo;
@@ -16,7 +17,14 @@ public interface OAuthService {
      * @param clientId 第三方平台标识
      * @return 第三方平台信息
      */
-    OauthClientInfo getOauthClient(String clientId);
+    OauthClientInfo getClientInfo(String clientId);
+
+    /**
+     * 获取客户端信息
+     * @param clientId
+     * @return
+     */
+    OAuthClient getOauthClient(String clientId);
 
     /**
      * 用户登陆

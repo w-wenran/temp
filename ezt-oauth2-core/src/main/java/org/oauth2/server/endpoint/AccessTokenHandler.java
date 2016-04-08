@@ -1,5 +1,8 @@
 package org.oauth2.server.endpoint;
 
+import org.base.constants.ExecuteStatus;
+import org.base.exception.RuntimeExceptionWarning;
+import org.base.utils.Assert;
 import org.oauth2.server.data.DataHandler;
 import org.oauth2.server.data.DataHandlerFactory;
 import org.oauth2.server.fetcher.clientcredential.ClientCredentialFetcher;
@@ -23,21 +26,29 @@ public class AccessTokenHandler {
     public Object handlerRequest(Request request){
         String type = request.getParameter("grant_type");
         if(StrUtils.isEmpty(type)){
-            throw new RuntimeException("grant_type not found");
+            throw new RuntimeExceptionWarning(ExecuteStatus.unsupported_grant_type);
         }
 
         GrantHandler grantHandler = grantHandlerProvider.getHandler(type);
+
+        if(grantHandler==null){
+            throw new RuntimeExceptionWarning(ExecuteStatus.unsupported_grant_type);
+        }
+
         ClientCredentialFetcher.ClientCredential clientCredential = clientCredentialFetcher.fetch(request);
-        if(StrUtils.isEmpty(clientCredential.getClientId())){
-            throw new RuntimeException("client_id not found");
+
+        if(clientCredential==null||StrUtils.isEmpty(clientCredential.getClientId())){
+            throw new RuntimeExceptionWarning(ExecuteStatus.unknown_client_id);
         }
-        if(StrUtils.isEmpty(clientCredential.getClientSecret())){
-            throw new RuntimeException("client_secret not found");
+        if(clientCredential==null||StrUtils.isEmpty(clientCredential.getClientSecret())){
+            throw new RuntimeExceptionWarning(ExecuteStatus.invalid_client_secret);
         }
+
         DataHandler dataHandler = dataHandlerFactory.create(request);
         if(!dataHandler.validateClient(clientCredential.getClientId(),clientCredential.getClientSecret(),type)){
-            throw new RuntimeException("invalid client");
+            throw new RuntimeExceptionWarning(ExecuteStatus.execute_failure);
         }
+
         return grantHandler.handleRequest(dataHandler);
     }
 

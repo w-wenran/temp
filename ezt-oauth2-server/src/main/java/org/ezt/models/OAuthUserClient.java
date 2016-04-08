@@ -28,7 +28,7 @@ public class OAuthUserClient {
 
     @Id
     @Note("用户唯一标识id")
-    @Column(name = "openid",length = 64)
+    @Column(name = "openid",length = 48)
     private String openid;
 
     @JsonIgnore
