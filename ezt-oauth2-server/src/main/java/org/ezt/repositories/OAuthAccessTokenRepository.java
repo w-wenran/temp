@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface OAuthAccessTokenRepository extends JpaRepository<OAuthAccessToken,Long> {
 
+    OAuthAccessToken findByAccessToken(String accessToken);
+
 }

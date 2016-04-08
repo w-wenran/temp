@@ -36,12 +36,25 @@ public class DefaultDataHandler extends DataHandler {
 
     @Override
     public AccessToken getAccessToken(String accessToken) {
-        return null;
+        OAuthAccessToken authAccessToken = oauthService.getAccessToken(accessToken);
+        if(StrUtil.isNull(authAccessToken)){
+            return null;
+        }
+        return authAccessToken.parseAccessToken();
     }
 
     @Override
     public AuthInfo getAuthInfo(Long authId) {
-        return null;
+        OAuthAccessToken authAccessToken = oauthService.getAccessToken(authId);
+        if(authAccessToken==null){
+            return null;
+        }
+        AuthInfo authInfo = new AuthInfo();
+        authInfo.setClientId(authAccessToken.getClientId());
+        authInfo.setUserId(authAccessToken.getOpenid());
+        authInfo.setRefreshToken(authAccessToken.getRefreshToken());
+        authInfo.setScope(authAccessToken.getScope());
+        return authInfo;
     }
 
     @Override

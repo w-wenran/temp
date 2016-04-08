@@ -48,6 +48,22 @@ public class ProtectedResourceHandler {
     }
 
 
+    public AccessTokenFetcherProvider getAccessTokenFetcherProvider() {
+        return accessTokenFetcherProvider;
+    }
+
+    public void setAccessTokenFetcherProvider(AccessTokenFetcherProvider accessTokenFetcherProvider) {
+        this.accessTokenFetcherProvider = accessTokenFetcherProvider;
+    }
+
+    public DataHandlerFactory getDataHandlerFactory() {
+        return dataHandlerFactory;
+    }
+
+    public void setDataHandlerFactory(DataHandlerFactory dataHandlerFactory) {
+        this.dataHandlerFactory = dataHandlerFactory;
+    }
+
     public static class Response{
 
         private String userId;

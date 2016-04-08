@@ -62,11 +62,16 @@ public class OAuthRefreshToken {
     @Column(name = "expires_in",nullable = false)
     private Long expiresIn;
 
+    @Note("访问权限")
+    @Column(name = "scope",nullable = false)
+    private String scope;
+
     public AuthInfo parseAuthInfo(){
         AuthInfo authInfo = new AuthInfo();
         authInfo.setRefreshToken(this.refreshToken);
         authInfo.setUserId(this.getOpenid());
         authInfo.setClientId(this.clientId);
+        authInfo.setScope(this.scope);
         return authInfo;
     }
 
@@ -132,6 +137,14 @@ public class OAuthRefreshToken {
 
     public void setoAuthClient(OAuthClient oAuthClient) {
         this.oAuthClient = oAuthClient;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 
     @PrePersist

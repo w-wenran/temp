@@ -1,5 +1,6 @@
 package org.ezt.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.base.utils.RandomUtil;
 import org.base.utils.beannote.Note;
 
@@ -30,6 +31,11 @@ public class OAuthUser {
     @Column(name = "user_id",unique = true,nullable = false)
     private Long userId;
 
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false, nullable = false)
+    private EztUser eztUser;
+
     @Note("创建时间")
     @Column(name = "create_time",nullable = false,updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)
@@ -57,6 +63,14 @@ public class OAuthUser {
 
     public void setOpenid(String openid) {
         this.openid = openid;
+    }
+
+    public EztUser getEztUser() {
+        return eztUser;
+    }
+
+    public void setEztUser(EztUser eztUser) {
+        this.eztUser = eztUser;
     }
 
     @PrePersist

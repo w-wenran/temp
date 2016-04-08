@@ -9,6 +9,7 @@ import org.ezt.models.*;
 import org.ezt.repositories.*;
 import org.ezt.service.OAuthService;
 import org.ezt.views.OauthClientInfo;
+import org.ezt.views.UserInfo;
 import org.oauth2.server.models.AuthInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -86,6 +87,7 @@ public class OAuthServiceImpl implements OAuthService {
         token.setOpenid(authInfo.getUserId());
         token.setAccessToken(OAuthAccessToken.generatedToken());
         token.setExpiresIn(OAuthAccessToken.expiresInTime());
+        token.setScope(authInfo.getScope());
         grantAccessTokenRepository.saveAndFlush(token);
         return token;
     }
@@ -98,13 +100,44 @@ public class OAuthServiceImpl implements OAuthService {
         oauthRefreshToken.setOpenid(clientInfo.getOpenid());
         oauthRefreshToken.setRefreshToken(OAuthRefreshToken.generatedToken());
         oauthRefreshToken.setExpiresIn(OAuthRefreshToken.expiresInTime());
-
+        oauthRefreshToken.setScope(clientInfo.getScope());
         return oAuthRefreshTokenRepository.saveAndFlush(oauthRefreshToken);
     }
 
     @Override
     public OAuthRefreshToken getRefreshToken(String refreshToken) {
         return oAuthRefreshTokenRepository.findByRefreshToken(refreshToken);
+    }
+
+    @Override
+    public UserInfo getUserInfo(String openid) {
+
+        Assert.notEmpty(openid,"openid不能为空");
+
+        OAuthUser user = oauthUserRepository.findOne(openid);
+        Assert.expr(StrUtil.isNull(user),ExecuteStatus.resource_not_exist,"不存在该用户");
+
+        EztUser eztUser = user.getEztUser();
+
+        Assert.expr(StrUtil.isNull(eztUser),ExecuteStatus.execute_failure,"用户信息获取失败");
+
+        UserInfo userInfo = new UserInfo();
+
+        userInfo.setOpenid(user.getOpenid());
+
+        userInfo.setNickName(eztUser.getEuNickName()==null?"":eztUser.getEuNickName());
+
+        return userInfo;
+    }
+
+    @Override
+    public OAuthAccessToken getAccessToken(String accessToken) {
+        return grantAccessTokenRepository.findByAccessToken(accessToken);
+    }
+
+    @Override
+    public OAuthAccessToken getAccessToken(Long authId) {
+        return grantAccessTokenRepository.findOne(authId);
     }
 
     /**

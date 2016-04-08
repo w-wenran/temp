@@ -19,6 +19,9 @@ public class HttpServiceContext {
     private HttpServletRequest request;
     private HttpServletResponse response;
     private Object handler;
+    private String openId;
+    private String clientId;
+    private String scope;
 
     public static void init(ApplicationContext applicationContext, HttpServletRequest request, HttpServletResponse response,Object handler) {
         threadLocal.set(new HttpServiceContext(applicationContext, request, response,handler));
@@ -53,6 +56,30 @@ public class HttpServiceContext {
 
     public static String getRefreshToken() {
         return getRequest() == null ? null : getRequest().getHeader(Refresh_Token_Header_Key);
+    }
+
+    public static String getOpenId() {
+        return getCurrent().openId;
+    }
+
+    public static void setOpenId(String openId) {
+        getCurrent().openId = openId;
+    }
+
+    public static String getScope() {
+        return getCurrent().scope;
+    }
+
+    public static void setScope(String scope) {
+        getCurrent().scope = scope;
+    }
+
+    public static String getClientId() {
+        return getCurrent().clientId;
+    }
+
+    public static void setClientId(String clientId) {
+        getCurrent().clientId = clientId;
     }
 
     /**

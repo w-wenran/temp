@@ -54,7 +54,7 @@ public class OAuthAccessToken {
     private String accessToken;
 
     @Note("该凭证可以换取新的凭证")
-    @Column(name = "refresh_token",length = 64,nullable = false,unique = true)
+    @Column(name = "refresh_token",length = 64,nullable = false)
     private String refreshToken;
 
     @Note("创建时间")
@@ -65,6 +65,10 @@ public class OAuthAccessToken {
     @Note("过期时间")
     @Column(name = "expires_in",nullable = false)
     private Long expiresIn;
+
+    @Note("访问权限")
+    @Column(name = "scope",nullable = false)
+    private String scope;
 
 
     public AccessToken parseAccessToken(){
@@ -146,6 +150,14 @@ public class OAuthAccessToken {
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 
     @PrePersist

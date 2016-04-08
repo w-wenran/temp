@@ -23,6 +23,9 @@ public class OauthClientInfo {
     @JsonProperty("openid")
     private String openid;
 
+    @JsonProperty("scope")
+    private String scope;
+
     public OauthClientInfo() {
     }
 
@@ -70,5 +73,13 @@ public class OauthClientInfo {
 
     public void setOpenid(String openid) {
         this.openid = openid;
+    }
+
+    public String getScope() {
+        return scope;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 }

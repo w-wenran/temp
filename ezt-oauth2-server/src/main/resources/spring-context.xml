@@ -61,6 +61,11 @@
             <mvc:mapping path="/**"/>
             <bean class="org.base.runtime.HttpServiceContextHandler"/>
         </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/oauth2/**"/>
+            <bean class="org.ezt.runtime.ProtectedResourceInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
 </beans>

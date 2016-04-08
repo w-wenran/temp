@@ -16,7 +16,7 @@ public class ContentNegotiationConfigs {
     public ContentNegotiatingViewResolver contentNegotiatingViewResolver(){
         ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
         ContentNegotiationManagerFactoryBean managerFactoryBean = new ContentNegotiationManagerFactoryBean();
-        managerFactoryBean.setDefaultContentType(MediaType.APPLICATION_JSON);
+        managerFactoryBean.setDefaultContentType(MediaType.APPLICATION_JSON_UTF8);
         managerFactoryBean.setFavorPathExtension(Boolean.FALSE);
         resolver.setContentNegotiationManager(managerFactoryBean.getObject());
         return resolver;

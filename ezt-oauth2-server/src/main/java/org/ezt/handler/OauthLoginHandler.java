@@ -33,6 +33,7 @@ public class OauthLoginHandler implements OauthHandler {
         String userAccount = request.getParameter("user_account");
         String passworld = request.getParameter("user_password");
         String clientId = request.getParameter("client_id");
+        String scope = request.getParameter("scope");
 
         String openid = oauthService.userLogin(userAccount,passworld);
 
@@ -41,6 +42,7 @@ public class OauthLoginHandler implements OauthHandler {
         Assert.expr(StrUtil.isNull(clientInfo), ExecuteStatus.unknown_client_id);
 
         clientInfo.setOpenid(openid);
+        clientInfo.setScope(StrUtil.isEmpty(scope)?"user_info":scope);
 
         OAuthContentStore.EncryptClient encryptClient = OAuthContentStore.getInstance().encrypt(clientInfo);
 

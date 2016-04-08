@@ -36,6 +36,8 @@ public enum ExecuteStatus {
 
     invalid_refresh_token("00000015","无效的refresh_token"),
 
+    resource_not_exist("00000016","资源不存在"),
+
     server_busy("99999999","服务器繁忙,请稍后再试");
 
 
