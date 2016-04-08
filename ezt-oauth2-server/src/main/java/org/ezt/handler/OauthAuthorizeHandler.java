@@ -1,11 +1,10 @@
 package org.ezt.handler;
 
+import org.base.pluging.RedirectPage;
 import org.base.utils.Assert;
 import org.base.utils.DesUtil;
 import org.base.utils.JsonUtil;
-import org.base.utils.RandomUtil;
 import org.ezt.common.OAuthCodeStore;
-import org.ezt.controller.TemplateController;
 import org.ezt.models.OAuthRefreshToken;
 import org.ezt.service.OAuthService;
 import org.ezt.views.OauthClientInfo;
@@ -33,7 +32,7 @@ public class OauthAuthorizeHandler implements OauthHandler {
     private OAuthService oAuthService;
 
     @Override
-    public void handlerRequest(HttpServletRequest request, HttpServletResponse response, TemplateController controller) {
+    public RedirectPage handlerRequest(HttpServletRequest request, HttpServletResponse response) {
         String token = request.getParameter("oauth_token");
         String content = request.getParameter("oauth_content");
         String data = DesUtil.decrypt(content,token);
@@ -49,10 +48,6 @@ public class OauthAuthorizeHandler implements OauthHandler {
 
         String code = OAuthCodeStore.getInstance().addAuthInfo(authInfo);
 
-        try {
-            response.sendRedirect(oauthClientInfo.getRedirectUri()+"?code="+code);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return new RedirectPage(oauthClientInfo.getRedirectUri()+"?code="+code);
     }
 }

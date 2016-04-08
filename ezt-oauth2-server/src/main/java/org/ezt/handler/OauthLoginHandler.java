@@ -1,9 +1,9 @@
 package org.ezt.handler;
 
+import org.base.pluging.ModelView;
 import org.base.utils.DesUtil;
 import org.base.utils.JsonUtil;
 import org.base.utils.RandomUtil;
-import org.ezt.controller.TemplateController;
 import org.ezt.service.OAuthService;
 import org.ezt.views.OauthClientInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class OauthLoginHandler implements OauthHandler {
     }
 
     @Override
-    public void handlerRequest(HttpServletRequest request, HttpServletResponse response, TemplateController controller) {
+    public ModelView handlerRequest(HttpServletRequest request, HttpServletResponse response) {
         String userAccount = request.getParameter("user_account");
         String passworld = request.getParameter("user_password");
         String clientId = request.getParameter("client_id");
@@ -41,6 +41,6 @@ public class OauthLoginHandler implements OauthHandler {
         model.put("client_name",clientInfo.getClientName());
         model.put("oauth_token", token);
         model.put("oauth_content", DesUtil.encrypt(JsonUtil.toJson(clientInfo),token));
-        controller.parseTemplate("oauth_authorize.vm",model);
+        return new ModelView("oauth_authorize.vm",model);
     }
 }

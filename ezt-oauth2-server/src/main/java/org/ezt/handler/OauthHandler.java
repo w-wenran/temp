@@ -1,7 +1,5 @@
 package org.ezt.handler;
 
-import org.ezt.controller.TemplateController;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,7 +11,7 @@ public interface OauthHandler {
 
     ActionType getAction();
 
-    void handlerRequest(HttpServletRequest request, HttpServletResponse response, TemplateController controller);
+    Object handlerRequest(HttpServletRequest request, HttpServletResponse response);
 
     enum ActionType{
 

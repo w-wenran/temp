@@ -1,4 +1,4 @@
-package org.base.models;
+package org.base.common;
 
 import org.base.annotation.API;
 import org.base.utils.CollectionUtils;

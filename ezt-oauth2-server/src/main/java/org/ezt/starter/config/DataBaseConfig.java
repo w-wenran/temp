@@ -53,7 +53,7 @@ public class DataBaseConfig {
         LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
         lef.setDataSource(dataSource);
         lef.setJpaVendorAdapter(jpaVendorAdapter);
-        lef.setPackagesToScan("org.ezt.models");
+        lef.setPackagesToScan("org.ezt.common");
         lef.setSharedCacheMode(SharedCacheMode.NONE);
         lef.afterPropertiesSet();
         return lef.getObject();

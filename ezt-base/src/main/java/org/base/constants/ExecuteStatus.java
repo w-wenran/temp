@@ -24,7 +24,9 @@ public enum ExecuteStatus {
 
     param_is_null("00000009","参数不能为空"),
 
-    execute_failure("000000010","执行失败");
+    execute_failure("00000010","执行失败"),
+
+    server_busy("99999999","服务器繁忙,请稍后再试");
 
 
     private String code;

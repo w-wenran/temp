@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>用户授权登录</title>
+    <title>错误页面</title>
     <link rel="stylesheet" type="text/css" href="/static/css/oauth_web.css">
 </head>
 <body>
-Message:$message
+error:$error
+error_code:$error_code
+error_description:$error_description
 </body>
 <script>
 

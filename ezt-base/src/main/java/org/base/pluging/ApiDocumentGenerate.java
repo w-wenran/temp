@@ -1,7 +1,7 @@
-package org.base.runtime;
+package org.base.pluging;
 
 import org.base.annotation.Undefined;
-import org.base.models.RequestRouting;
+import org.base.common.RequestRouting;
 import org.base.utils.JsonUtil;
 import org.base.utils.MockUtil;
 import org.base.utils.ResourceUtil;
@@ -14,9 +14,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016.3.23.
+ * 生成接口文档
+ * Created by wangwr on 2016.3.23.
  */
-public class ApiDocumentHandler {
+public class APIDocumentGenerate {
 
     public static void createDocument(ApplicationContext applicationContext, HttpServletRequest req, HttpServletResponse resp){
         try {
