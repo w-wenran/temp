@@ -74,6 +74,10 @@ public class DefaultDataHandler extends DataHandler {
         if (StrUtil.isNull(token)){
             return null;
         }
+        long now = System.currentTimeMillis();
+        if (token.getCreateTime().getTime() + token.getExpiresIn() * 1000 <= now) {
+            throw new RuntimeExceptionWarning(ExecuteStatus.expired_refresh_token);
+        }
         return token.parseAuthInfo();
     }
 
