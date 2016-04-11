@@ -1,11 +1,8 @@
 package org.base.pluging;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.velocity.app.VelocityEngine;
 import org.base.common.ErrorBody;
-import org.base.constants.ExecuteStatus;
-import org.base.exception.RuntimeExceptionWarning;
 import org.base.runtime.HttpServiceContext;
 import org.base.utils.ExceptionUtil;
 import org.base.utils.JsonUtil;
@@ -13,8 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.velocity.VelocityEngineUtils;
-
-import java.io.IOException;
 
 /**
  * Created by wangwr on 2016/4/7.
