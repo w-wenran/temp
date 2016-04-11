@@ -6,7 +6,6 @@ import org.ezt.models.OAuthRefreshToken;
 import org.ezt.views.OauthClientInfo;
 import org.ezt.views.UserInfo;
 import org.oauth2.server.models.AuthInfo;
-import org.slf4j.Logger;
 
 /**
  * 授权服务逻辑层
@@ -64,4 +63,5 @@ public interface OAuthService {
     OAuthAccessToken getAccessToken(String accessToken);
 
     OAuthAccessToken getAccessToken(Long authId);
+
 }

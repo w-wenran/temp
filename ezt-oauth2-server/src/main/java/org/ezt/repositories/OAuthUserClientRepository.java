@@ -1,6 +1,5 @@
 package org.ezt.repositories;
 
-import org.ezt.models.OAuthUserClient;
 import org.ezt.models.pk.OAuthUserClientPK;
 import org.springframework.data.jpa.repository.JpaRepository;
 

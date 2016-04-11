@@ -101,6 +101,7 @@ public class OAuthServiceImpl implements OAuthService {
         oauthRefreshToken.setRefreshToken(OAuthRefreshToken.generatedToken());
         oauthRefreshToken.setExpiresIn(OAuthRefreshToken.expiresInTime());
         oauthRefreshToken.setScope(clientInfo.getScope());
+
         return oAuthRefreshTokenRepository.saveAndFlush(oauthRefreshToken);
     }
 
