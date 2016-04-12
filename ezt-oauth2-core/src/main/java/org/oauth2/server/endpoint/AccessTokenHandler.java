@@ -46,7 +46,7 @@ public class AccessTokenHandler {
 
         DataHandler dataHandler = dataHandlerFactory.create(request);
         if(!dataHandler.validateClient(clientCredential.getClientId(),clientCredential.getClientSecret(),type)){
-            throw new RuntimeExceptionWarning(ExecuteStatus.execute_failure);
+            throw new RuntimeExceptionWarning(ExecuteStatus.invalid_client_secret);
         }
 
         return grantHandler.handleRequest(dataHandler);

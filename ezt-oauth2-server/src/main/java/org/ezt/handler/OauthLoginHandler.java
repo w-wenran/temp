@@ -33,11 +33,17 @@ public class OauthLoginHandler implements OauthHandler {
         String userAccount = request.getParameter("user_account");
         String passworld = request.getParameter("user_password");
         String clientId = request.getParameter("client_id");
+        String redirectUri = request.getParameter("redirect_uri");
+
+        Assert.expr(!StrUtil.matchUri(redirectUri),ExecuteStatus.invalid_redirect_uri);
+
         String scope = request.getParameter("scope");
 
         String openid = oauthService.userLogin(userAccount,passworld);
 
         OauthClientInfo clientInfo = oauthService.getClientInfo(clientId);
+
+        clientInfo.setRedirectUri(redirectUri);
 
         Assert.expr(StrUtil.isNull(clientInfo), ExecuteStatus.unknown_client_id);
 

@@ -70,11 +70,16 @@ public class Oauth2Controller extends APIProcessor {
             public Object execute() {
                 HttpServletRequestAdapter requestAdapter = new HttpServletRequestAdapter(HttpServiceContext.getRequest());
                 String clientId = requestAdapter.getParameter("client_id");
+                String redirectUri = requestAdapter.getParameter("redirect_uri");
+
                 Assert.expr(StrUtil.isNull(clientId),ExecuteStatus.unknown_client_id);
+
+                Assert.expr(!StrUtil.matchUri(redirectUri),ExecuteStatus.invalid_redirect_uri);
+
                 OauthClientInfo clientInfo = oauthService.getClientInfo(clientId);
                 Map<String, Object> model = JsonUtil.toMap(JsonUtil.toJson(clientInfo));
                 model.put("response_type", requestAdapter.getParameter("response_type"));
-                model.put("redirect_uri", requestAdapter.getParameter("redirect_uri"));
+                model.put("redirect_uri", redirectUri);
                 return new ModelView("oauth_login.vm",model);
             }
         },true);

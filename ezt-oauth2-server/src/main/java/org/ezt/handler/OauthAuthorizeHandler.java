@@ -54,6 +54,8 @@ public class OauthAuthorizeHandler implements OauthHandler {
 
         String code = OAuthCodeStore.getInstance().addAuthInfo(authInfo);
 
-        return new RedirectPage(oauthClientInfo.getRedirectUri()+"?code="+code);
+        String uri = StrUtil.appendUriParams(oauthClientInfo.getRedirectUri(),"code",code);
+
+        return new RedirectPage(uri);
     }
 }

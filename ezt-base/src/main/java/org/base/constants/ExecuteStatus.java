@@ -40,6 +40,8 @@ public enum ExecuteStatus {
 
     expired_refresh_token("00000017","refresh_token过期"),
 
+    invalid_redirect_uri("00000018","无效的redirect_uri"),
+
     server_busy("99999999","服务器繁忙,请稍后再试");
 
 
