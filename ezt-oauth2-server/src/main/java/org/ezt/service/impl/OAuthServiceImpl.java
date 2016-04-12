@@ -13,10 +13,6 @@ import org.ezt.views.UserInfo;
 import org.oauth2.server.models.AuthInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.security.krb5.internal.PAData;
-import sun.security.provider.MD5;
-
-import java.security.MessageDigest;
 
 /**
  * Created by wangwr on 2016/4/5.
@@ -29,9 +25,6 @@ public class OAuthServiceImpl implements OAuthService {
 
     @Autowired
     private OAuthClientRepository oauthClientRepository;
-
-    @Autowired
-    private OAuthUserClientRepository oauthUserClientRepository;
 
     @Autowired
     private OAuthAccessTokenRepository grantAccessTokenRepository;

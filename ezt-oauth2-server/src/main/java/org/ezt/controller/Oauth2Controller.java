@@ -7,7 +7,9 @@ import org.base.pluging.APIProcessor;
 import org.base.pluging.RequestHandler;
 import org.base.pluging.ModelView;
 import org.base.runtime.HttpServiceContext;
+import org.base.utils.Assert;
 import org.base.utils.JsonUtil;
+import org.base.utils.StrUtil;
 import org.ezt.handler.OauthHandler;
 import org.ezt.service.OAuthService;
 import org.ezt.views.OauthClientInfo;
@@ -68,6 +70,7 @@ public class Oauth2Controller extends APIProcessor {
             public Object execute() {
                 HttpServletRequestAdapter requestAdapter = new HttpServletRequestAdapter(HttpServiceContext.getRequest());
                 String clientId = requestAdapter.getParameter("client_id");
+                Assert.expr(StrUtil.isNull(clientId),ExecuteStatus.unknown_client_id);
                 OauthClientInfo clientInfo = oauthService.getClientInfo(clientId);
                 Map<String, Object> model = JsonUtil.toMap(JsonUtil.toJson(clientInfo));
                 model.put("response_type", requestAdapter.getParameter("response_type"));

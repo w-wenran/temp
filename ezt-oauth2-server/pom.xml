@@ -110,6 +110,7 @@
                 <configuration>
                     <fork>true</fork>
                     <outputDirectory>${basedir}/../</outputDirectory>
+                    <finalName>oauthserver</finalName>
                 </configuration>
             </plugin>
             <plugin>
