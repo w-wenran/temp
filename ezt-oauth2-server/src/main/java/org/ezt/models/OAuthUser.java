@@ -16,7 +16,7 @@ import java.util.Date;
 public class OAuthUser {
 
     public static String generatedOpenid(){
-        return RandomUtil.randomWords(RandomUtil.RandomType.MIXING,48);
+        return RandomUtil.randomWords(RandomUtil.RandomType.MIXING,32);
     }
 
     /**

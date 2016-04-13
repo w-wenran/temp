@@ -17,7 +17,7 @@ public class ExceptionUtil {
     public static ErrorBody processException(Exception e){
         if(e instanceof RuntimeExceptionWarning){
             RuntimeExceptionWarning warning = (RuntimeExceptionWarning) e;
-            logger.warn(String.format("[code:%s,description:%s]",warning.getErrorCode(),warning.getErrorDescription()));
+            LogUtil.getLogger(warning.throwClass).warn(String.format("[code:%s,description:%s]",warning.getErrorCode(),warning.getErrorDescription()));
             return new ErrorBody(warning.getError(),warning.getErrorCode(),warning.getErrorDescription());
         }
         //异常降级

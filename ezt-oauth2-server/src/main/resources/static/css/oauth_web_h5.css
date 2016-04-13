@@ -1,0 +1,23 @@
+body{
+    background-color: #eeeeee;font-family: 黑体;font-size: 18px;color:#666666 ;
+}
+
+.logo_header{
+    margin: 30px;
+    font-size: 32px;
+}
+
+.main-wrapper{
+    margin: 30px 30px;
+    background-color: #fcfcfc;
+    height: 630px;
+}
+
+.main-wrapper p{
+    text-align: center;
+    padding: 38px 0px;
+    margin: 0px;
+    font-size: 22px;
+    color: #999999;
+}
+

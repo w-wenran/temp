@@ -6,8 +6,8 @@ import org.base.common.ErrorBody;
 import org.base.runtime.HttpServiceContext;
 import org.base.utils.ExceptionUtil;
 import org.base.utils.JsonUtil;
+import org.base.utils.LogUtil;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
@@ -16,7 +16,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
  */
 public class APIProcessor {
 
-    private static Logger logger = LoggerFactory.getLogger(APIProcessor.class);
+    private static Logger logger = LogUtil.getLogger();
 
     @Autowired
     private VelocityEngine velocityEngine;

@@ -32,7 +32,7 @@ public class StrUtil {
     }
 
     public static boolean matchUri(String uri){
-        return !isEmpty(uri) && REX_URI.matcher(uri).matches();
+        return (!isEmpty(uri) && REX_URI.matcher(uri).matches());
     }
 
     public static String appendUriParams(String uri,String key,String value){

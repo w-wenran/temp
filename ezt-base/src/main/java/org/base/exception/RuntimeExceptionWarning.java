@@ -1,6 +1,7 @@
 package org.base.exception;
 
 import org.base.constants.ExecuteStatus;
+import org.base.utils.StackTraceUtil;
 import org.base.utils.StrUtil;
 
 /**
@@ -13,9 +14,12 @@ public class RuntimeExceptionWarning extends RuntimeException{
 
     private ExecuteStatus executeStatus;
 
+    public String throwClass;
+
     public RuntimeExceptionWarning(ExecuteStatus executeStatus ) {
         super(String.format("[code:%s,description:%s]",executeStatus.getCode(),executeStatus.getDescription()));
         this.executeStatus = executeStatus;
+        this.throwClass = getThrowClass();
     }
 
     /**
@@ -27,11 +31,13 @@ public class RuntimeExceptionWarning extends RuntimeException{
         super(String.format("[code:%s, description:%s, explain:%s]",executeStatus.getCode(),executeStatus.getDescription(),explain));
         this.explain = explain;
         this.executeStatus = executeStatus;
+        this.throwClass = getThrowClass();
     }
 
     public RuntimeExceptionWarning(ExecuteStatus executeStatus, Throwable cause) {
         super(String.format("[code:%s,description:%s]",executeStatus.getCode(),executeStatus.getDescription()), cause);
         this.executeStatus = executeStatus;
+        this.throwClass = getThrowClass();
     }
 
     /**
@@ -44,6 +50,7 @@ public class RuntimeExceptionWarning extends RuntimeException{
         super(String.format("[code:%s,description:%s, explain:%s]",executeStatus.getCode(),executeStatus.getDescription(),explain), cause);
         this.explain = explain;
         this.executeStatus = executeStatus;
+        this.throwClass = getThrowClass();
     }
 
     public String getError(){
@@ -59,5 +66,9 @@ public class RuntimeExceptionWarning extends RuntimeException{
             return executeStatus.getDescription();
         }
         return explain;
+    }
+
+    private String getThrowClass(){
+        return StackTraceUtil.getPreCallStack(this.getClass(),"<init>").getClassName();
     }
 }

@@ -1,0 +1,41 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title></title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link rel="stylesheet" href="../static/css/normalize.css">
+
+    <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+
+    <link rel="stylesheet" href="../static/css/oauth_web_h5.css">
+
+    <script src="../static/js/modernizr-2.0.6.min.js"></script>
+</head>
+<body>
+
+<div>
+    <div class="logo_header">
+        <img src="../static/img/logo2x.png">
+        <label>快捷登陆</label>
+    </div> <!-- #main -->
+    <div class="main-wrapper">
+        <p>您将通过医指通账号来访问寻医问药官网！</p>
+    </div>
+</div> <!-- #main-container -->
+
+</body>
+</html>

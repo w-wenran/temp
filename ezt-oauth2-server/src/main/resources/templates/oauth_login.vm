@@ -18,7 +18,7 @@
         <div class="panel panel-default p-panel">
             <div class="panel-body"  style="padding: 0px;height: 418px;">
 
-                <h2 class="p-title">您将通过医指通账号来访问寻医问药官网！</h2>
+                <h2 class="p-title">您将通过医指通账号来访问$client_name！</h2>
 
                 <form role="form" id="fm_login" class="form-horizontal" method="post" action="authorize">
 
@@ -30,14 +30,14 @@
                     <div class="form-group" style="width: 350px;margin: 0px auto;padding: 0px;">
                         <label class="col-sm-2">账号：</label>
                         <div class="col-sm-9">
-                            <input type="text" name="user_account" class="form-control" value="7442602" placeholder="请输入电话号码/会员号"/>
+                            <input type="text" name="user_account" class="form-control" value="" placeholder="请输入电话号码/会员号"/>
                         </div>
                     </div>
 
                     <div class="form-group" style="width: 350px;margin: 14px auto;padding: 0px;">
                         <label class="col-sm-2" style="color: #666666;">密码：</label>
                         <div class="col-sm-9">
-                            <input type="password" name="user_password"  class="form-control" value="123456" placeholder="请输入登陆密码"/>
+                            <input type="password" name="user_password"  class="form-control" value="" placeholder="请输入登陆密码"/>
                         </div>
                     </div>
 
