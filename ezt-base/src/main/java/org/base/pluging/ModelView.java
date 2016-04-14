@@ -20,6 +20,10 @@ public class ModelView {
         this.viewLocation = viewLocation;
     }
 
+    public ModelView(String viewLocation) {
+        this.viewLocation = viewLocation;
+    }
+
     public Map<String, Object> getModelMap() {
         if(modelMap==null&&model!=null){
             modelMap = JsonUtil.toMap(JsonUtil.toJson(model));

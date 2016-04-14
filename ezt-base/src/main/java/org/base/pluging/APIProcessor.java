@@ -7,6 +7,7 @@ import org.base.runtime.HttpServiceContext;
 import org.base.utils.ExceptionUtil;
 import org.base.utils.JsonUtil;
 import org.base.utils.LogUtil;
+import org.base.utils.StrUtil;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.velocity.VelocityEngineUtils;
@@ -53,8 +54,12 @@ public class APIProcessor {
 
 
     protected Object exceptionPage(ErrorBody errorBody){
-        return VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,"error.vm","UTF-8",JsonUtil.toMap(JsonUtil.toJson(errorBody)));
+        return VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,String.format("error_%s.vm",getPageType()),"UTF-8",JsonUtil.toMap(JsonUtil.toJson(errorBody)));
     }
 
+    protected String getPageType(){
+        String type = HttpServiceContext.getRequest().getParameter("page_type");
+        return StrUtil.isEmpty(type)?"pc":type;
+    }
 
 }

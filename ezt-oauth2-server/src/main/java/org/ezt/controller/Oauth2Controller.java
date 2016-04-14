@@ -68,7 +68,15 @@ public class Oauth2Controller extends APIProcessor {
         return handleRequest(new RequestHandler() {
             @Override
             public Object execute() {
+
                 HttpServletRequestAdapter requestAdapter = new HttpServletRequestAdapter(HttpServiceContext.getRequest());
+
+                String pageType = requestAdapter.getParameter("page_type");
+
+                if(StrUtil.isEmpty(pageType)){//适配识别网页
+                    return new ModelView("intelligent.vm");
+                }
+
                 String clientId = requestAdapter.getParameter("client_id");
                 String redirectUri = requestAdapter.getParameter("redirect_uri");
 
@@ -80,7 +88,7 @@ public class Oauth2Controller extends APIProcessor {
                 Map<String, Object> model = JsonUtil.toMap(JsonUtil.toJson(clientInfo));
                 model.put("response_type", requestAdapter.getParameter("response_type"));
                 model.put("redirect_uri", redirectUri);
-                return new ModelView("oauth_login.vm",model);
+                return new ModelView(String.format("oauth_login_%s.vm",pageType),model);
             }
         },true);
     }

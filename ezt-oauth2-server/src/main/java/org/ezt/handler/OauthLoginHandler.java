@@ -34,6 +34,7 @@ public class OauthLoginHandler implements OauthHandler {
         String passworld = request.getParameter("user_password");
         String clientId = request.getParameter("client_id");
         String redirectUri = request.getParameter("redirect_uri");
+        String pageType = request.getParameter("page_type");
 
         Assert.expr(!StrUtil.matchUri(redirectUri),ExecuteStatus.invalid_redirect_uri);
 
@@ -55,6 +56,6 @@ public class OauthLoginHandler implements OauthHandler {
         Map<String,Object> model = encryptClient.getMap();
         model.put("client_name",clientInfo.getClientName());
 
-        return new ModelView("oauth_authorize.vm",model);
+        return new ModelView(String.format("oauth_authorize_%s.vm",pageType),model);
     }
 }
