@@ -16,6 +16,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.logging.Handler;
 
 /**
  * Created by wangwr on 2016/3/30.
@@ -37,25 +38,28 @@ public class ProtectedResourceInterceptor extends HandlerInterceptorAdapter{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        RequestRouting requestRouting = RequestRouting.getReqRouting((HandlerMethod) handler);
+        if(HandlerMethod.class.isInstance(handler)){
 
-        if(requestRouting!=null && requestRouting.isApiAuth()){
-            //需要权限认证
-            protectedResourceHandler.setDataHandlerFactory(dataHandlerFactory);
+            RequestRouting requestRouting = RequestRouting.getReqRouting((HandlerMethod) handler);
 
-            HttpServletRequestAdapter requestAdapter = new HttpServletRequestAdapter(HttpServiceContext.getRequest());
+            if(requestRouting!=null && requestRouting.isApiAuth()){
+                //需要权限认证
+                protectedResourceHandler.setDataHandlerFactory(dataHandlerFactory);
 
-            try {
-                ProtectedResourceHandler.Response result = protectedResourceHandler.handlerRequest(requestAdapter);
-                Assert.notNull(request,"无效的凭证");
-                HttpServiceContext.setClientId(result.getClientId());
-                HttpServiceContext.setOpenId(result.getUserId());
-                HttpServiceContext.setScope(result.getScope());
-            }catch (Exception e){
-                response.setContentType("application/json;charset=UTF-8");
-                response.getWriter().write(JsonUtil.toJson(ExceptionUtil.processException(e)));
-                response.getWriter().close();
-                return false;
+                HttpServletRequestAdapter requestAdapter = new HttpServletRequestAdapter(HttpServiceContext.getRequest());
+
+                try {
+                    ProtectedResourceHandler.Response result = protectedResourceHandler.handlerRequest(requestAdapter);
+                    Assert.notNull(request,"无效的凭证");
+                    HttpServiceContext.setClientId(result.getClientId());
+                    HttpServiceContext.setOpenId(result.getUserId());
+                    HttpServiceContext.setScope(result.getScope());
+                }catch (Exception e){
+                    response.setContentType("application/json;charset=UTF-8");
+                    response.getWriter().write(JsonUtil.toJson(ExceptionUtil.processException(e)));
+                    response.getWriter().close();
+                    return false;
+                }
             }
         }
 
