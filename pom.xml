@@ -32,6 +32,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <useTestClasspath>false</useTestClasspath>
+	                <fork>true</fork>
                 </configuration>
             </plugin>
 	        <plugin>
