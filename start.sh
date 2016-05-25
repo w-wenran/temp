@@ -1,10 +1,16 @@
 #!/bin/bash
 
-echo "start deploy application..."
+echo "[INFO] start deploy application..."
 
 home_dir=$(pwd)
 
 echo "home_dir:" $home_dir
+
+echo "[INFO] try check start server and shutdown it"
+
+source ./stop.sh
+
+echo -n "[INFO] start up server..."
 
 START_LOGO="Tomcat started"
 
@@ -14,7 +20,6 @@ if [ -a "$home_dir"/oauthserver.war ]
 		( java -jar ./oauthserver.war --server.port=8989 >oauthserver.log 2>&1 &)
 		log_line=1
 		b_go=true
-		echo "watch server start..."
 		while ($b_go)
 		do 
 			new_line=$( wc -l oauthserver.log | awk '{ print $1 }')

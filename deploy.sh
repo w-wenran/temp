@@ -1,25 +1,25 @@
 #!/bin/bash
 
-echo "start deploy application..."
+echo "[INFO] start deploy application..."
 
 home_dir=$(pwd)
 
-echo "home_dir:" $home_dir
+echo "[INFO] home_dir:" $home_dir
 
-mvn clean && mvn package && echo "package complated"
+mvn clean && mvn package && echo "[INFO] maven package complated"
 
 if [ -a "$home_dir"/oauthserver.war ];
 
 	then 
 
-		echo "upload war to deploy server... "
+		echo "[INFO] upload war to deploy server... "
 		read -p "enter upload server name:" upload_server
 		if [ -z "$upload_server" ] || [ "$upload_server" == "localhost" ]
 		then
-			echo "empty input upload server"
+			echo "[WARN] empty input upload server"
 			source ./start.sh
 		else 
-			echo "try upload war to server $upload_server..."
+			echo "[INFO] try upload war to server $upload_server..."
 			scp ./oauthserver.war $upload_server:/opt/ezt/server.war
 			echo "[OK] done..."
 		fi
