@@ -2,5 +2,6 @@
 *.iml
 *target/
 *.war
+*.zip
 *.log
 .*
