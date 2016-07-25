@@ -1,0 +1,37 @@
+#!/bin/bash
+
+echo "[INFO] start deploy application..."
+
+home_dir=$(pwd)
+
+if [ -z "$1" ] || [ "localhost" == "$1" ]
+then
+	DEPLOY_SERVER=""
+else
+	DEPLOY_SERVER="$1"
+fi
+
+echo "[INFO] home_dir:" $home_dir
+
+mvn clean && mvn package && echo "[INFO] maven package complated"
+
+if [ -a "$home_dir"/server.war ];
+
+	then 
+
+		echo "[INFO] upload war to deploy server... "
+		#read -p "enter upload server name:" upload_server
+		if [ -z "$DEPLOY_SERVER" ] || [ "$DEPLOY_SERVER" == "localhost" ]
+		then
+			echo "[WARN] empty input upload server"
+			source ./start
+		else 
+			echo "[INFO] try upload war to server ${DEPLOY_SERVER}..."
+			scp ./server.war $upload_server:/opt/ezt/server.war
+			echo "[OK] done..."
+		fi
+
+	else
+		echo '[ERROR] server.war package not found'
+
+fi

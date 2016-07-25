@@ -17,7 +17,11 @@ import java.util.List;
  * 生成接口文档
  * Created by wangwr on 2016.3.23.
  */
+<<<<<<< HEAD:gold-base/src/main/java/org/base/pluging/ApiDocumentGenerate.java
 public class ApiDocumentGenerate {
+=======
+public class APIDocGenerates {
+>>>>>>> d8372dffa790538bca7fd6e83cd1bb23546920c1:gold-base/src/main/java/org/base/pluging/APIDocGenerates.java
 
     public static void createDocument(ApplicationContext applicationContext, HttpServletRequest req, HttpServletResponse resp){
         try {

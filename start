@@ -1,0 +1,48 @@
+#!/bin/bash
+
+echo "[INFO] start deploy application..."
+
+home_dir=$(pwd)
+
+echo "home_dir:" $home_dir
+
+echo "[INFO] try check start server and shutdown it"
+
+source ./stop
+
+echo -n "[INFO] start up server..."
+
+START_LOGO="Tomcat started"
+
+if [ -a "$home_dir"/server.war ]
+
+	then 
+		( java -jar ./server.war --server.port=8989 >server.log 2>&1 &)
+		log_line=1
+		b_go=true
+		while ($b_go)
+		do 
+			new_line=$( wc -l server.log | awk '{ print $1 }')
+			if [ $log_line -ne $new_line ] && [ $new_line -ne "0" ]
+				then
+					log_info=$(sed -n "${log_line},${new_line}p" server.log)
+					log_line=$new_line
+					[[ $log_info =~ "$START_LOGO" ]] && 
+						b_go=false &&
+						echo $START_LOGO 
+					[[ $log_info =~ "[ERROR]" ]] && 
+						echo -e "\n[ERROR] ${log_info}" && 
+						echo -e "\n[ERROR] start failed!! more details read log file" && 
+						exit -1
+					echo -n "..."
+
+			fi
+		done
+		echo "[OK] done..."
+		echo "[DONE] server port 8989"
+		
+
+	else
+		echo '[ERROR] server.war package not found'
+
+fi
