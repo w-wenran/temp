@@ -17,7 +17,7 @@ import java.util.List;
  * 生成接口文档
  * Created by wangwr on 2016.3.23.
  */
-public class APIDocumentGenerate {
+public class ApiDocumentGenerate {
 
     public static void createDocument(ApplicationContext applicationContext, HttpServletRequest req, HttpServletResponse resp){
         try {
